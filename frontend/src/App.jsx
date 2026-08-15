@@ -191,10 +191,22 @@ function App() {
 
       {showChat && (
         <ChatWindow
-          onClose={() =>
-            setShowChat(false)
-          }
-        />
+  onClose={() =>
+    setShowChat(false)
+  }
+  openResume={() =>
+    setShowResume(true)
+  }
+  openExperience={() =>
+    setShowExperience(true)
+  }
+  openAIProjects={() =>
+    setOpenFolder("AI")
+  }
+  openMLProjects={() =>
+    setOpenFolder("ML")
+  }
+/>
       )}
 
       {/* DOCK */}

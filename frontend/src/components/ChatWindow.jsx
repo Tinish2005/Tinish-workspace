@@ -6,26 +6,25 @@ const genAI = new GoogleGenerativeAI(
 );
 
 const portfolioContext = `
-You are Tinish's Personal AI Assistant.
+You are Ask Tinish.
 
-Always answer as Tinish's portfolio assistant.
+You are NOT ChatGPT.
+
+You are Tinish's interactive portfolio guide.
 
 ABOUT TINISH
 
-Name:
-Tinish
+Tinish is a Computer Science student at
+Maharaja Agrasen Institute of Technology (MAIT).
 
-Education:
-B.Tech Computer Science and Technology
-Maharaja Agrasen Institute of Technology (MAIT)
+He is currently a GenAI Intern at NIIT Limited.
 
-Experience:
-GenAI Intern at NIIT Limited.
+He enjoys building practical AI systems,
+agent architectures, RAG applications,
+and developer tools.
 
-Executive Head, Event Management,
-CSI Society.
+SKILLS
 
-Skills:
 Python
 Java
 C++
@@ -40,47 +39,105 @@ MCP
 ChromaDB
 Prompt Engineering
 
+EXPERIENCE
+
+GenAI Intern
+NIIT Limited
+
+Executive Head
+Event Management
+CSI Society
+
 PROJECTS
 
-AI Engineering Review Platform:
-An MCP-powered engineering review platform that performs engineering scoring, security analysis, maintainability analysis and company rule validation.
+AI Engineering Review Platform
 
-AI GitHub Agent:
-Repository-aware AI agent using Planner → Executor → Validator architecture, RAG, MCP and FastAPI.
+An MCP-powered platform that performs:
+- code review
+- maintainability analysis
+- security checks
+- engineering scoring
+- company rule validation
 
-DeepHire:
-A multimodal interview assessment platform combining resume analysis, NLP, speech analysis, computer vision and coding evaluation.
+AI GitHub Agent
 
-RAG PDF Chatbot:
-A chatbot that allows users to interact with PDF documents using Retrieval-Augmented Generation.
+Repository-aware AI agent using:
+Planner → Executor → Validator
 
-Heart Disease Prediction:
-Machine learning application that predicts heart disease probability using KNN.
+DeepHire
 
-RULES
+AI-powered interview assessment platform.
 
-If asked:
+Uses:
+- Resume Analysis
+- NLP
+- Speech Assessment
+- Coding Evaluation
+- Computer Vision
+
+RAG PDF Chatbot
+
+Chat with PDF documents using:
+- LangChain
+- ChromaDB
+- Gemini
+
+Heart Disease Prediction
+
+Machine Learning application
+for heart disease risk prediction.
+
+PERSONALITY
+
+Speak naturally.
+
+Keep answers short.
+
+Keep answers interesting.
+
+Do not sound like LinkedIn.
+
+Do not sound like a resume.
+
+Do not say:
+"Based on the provided information"
+
+Do not say:
+"According to the portfolio"
+
+Answer like a human introducing Tinish's work.
+
+Use 2-5 sentences normally.
+
+When answering:
+"What is DeepHire?"
+
+Explain:
+- What it is
+- Why it was built
+
+When answering:
 "Who is Tinish?"
-Answer using this portfolio information.
 
-If asked about projects:
-Answer using the project information above.
+Give a short introduction.
 
-If asked about skills:
-Answer using the listed skills.
+Only use information provided above.
 
-If asked about experience:
-Answer using NIIT and CSI information.
-
-Keep answers concise and portfolio-focused.
+Do not invent unknown facts.
 `;
 
-function ChatWindow({ onClose }) {
+function ChatWindow({
+  onClose,
+  openResume,
+  openExperience,
+  openAIProjects,
+  openMLProjects
+}) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
       content:
-        "Hi! I'm Tinish's AI Assistant. Ask me about projects, skills, experience, education, or portfolio work."
+        "Hey 👋 I'm Ask Tinish. Ask me about projects, skills, experience, or anything from my portfolio."
     }
   ]);
 
@@ -91,6 +148,7 @@ function ChatWindow({ onClose }) {
     if (!input.trim()) return;
 
     const userQuestion = input;
+    const query = userQuestion.toLowerCase();
 
     setMessages((prev) => [
       ...prev,
@@ -104,6 +162,74 @@ function ChatWindow({ onClose }) {
 
     try {
       setLoading(true);
+
+      /* CUSTOM RESPONSES */
+
+      if (query.includes("who is tinish")) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content:
+              "Tinish is an AI-focused Computer Science student at MAIT and currently a GenAI Intern at NIIT. He enjoys building practical AI systems such as DeepHire, AI GitHub Agent, and the AI Engineering Review Platform."
+          }
+        ]);
+        return;
+      }
+
+      if (query.includes("what is deephire")) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content:
+              "DeepHire is an AI-powered interview assessment platform built by Tinish. It combines resume analysis, NLP, speech assessment, coding evaluation, and computer vision to create a smarter hiring workflow."
+          }
+        ]);
+        return;
+      }
+
+      /* WORKSPACE COMMANDS */
+
+      if (
+        query.includes("open resume") ||
+        query === "resume"
+      ) {
+        openResume();
+        onClose();
+        return;
+      }
+
+      if (
+        query.includes("open experience") ||
+        query === "experience"
+      ) {
+        openExperience();
+        onClose();
+        return;
+      }
+
+      if (
+        query.includes("show ai projects") ||
+        query.includes("open ai projects") ||
+        query.includes("ai projects") ||
+        query.includes("show ai")
+      ) {
+        openAIProjects();
+        onClose();
+        return;
+      }
+
+      if (
+        query.includes("show ml projects") ||
+        query.includes("open ml projects") ||
+        query.includes("ml projects") ||
+        query.includes("show ml")
+      ) {
+        openMLProjects();
+        onClose();
+        return;
+      }
 
       const model =
         genAI.getGenerativeModel({
@@ -132,26 +258,28 @@ ${userQuestion}
           content: response
         }
       ]);
-    }
-    catch (error) {
-      console.error(
-        "Gemini Error:",
-        error
-      );
+    } catch (error) {
+      console.error("Gemini Error:", error);
+
+      let errorMessage =
+        "Sorry, I'm temporarily unavailable right now.";
+
+      if (
+        error?.message?.includes("429") ||
+        error?.message?.includes("quota")
+      ) {
+        errorMessage =
+          "I've reached my Gemini usage limit for now. Please try again later.";
+      }
 
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content:
-            `Gemini Error: ${
-              error?.message ||
-              "Unknown Error"
-            }`
+          content: errorMessage
         }
       ]);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -160,7 +288,6 @@ ${userQuestion}
     <div className="showcase-window">
 
       <div className="showcase-header">
-
         <h2>Ask Tinish</h2>
 
         <button
@@ -169,7 +296,6 @@ ${userQuestion}
         >
           ✕
         </button>
-
       </div>
 
       <div className="chat-body">
@@ -211,9 +337,7 @@ ${userQuestion}
           }}
         />
 
-        <button
-          onClick={handleSend}
-        >
+        <button onClick={handleSend}>
           Send
         </button>
 
