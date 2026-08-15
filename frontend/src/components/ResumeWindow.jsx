@@ -21,7 +21,9 @@ function ResumeWindow({ onClose }) {
             GenAI Engineer with hands-on experience building
             Agentic AI systems, RAG pipelines, and MCP-powered
             applications.
+          </p>
 
+          <p>
             Computer Science undergraduate at MAIT and
             GenAI Intern at NIIT, focused on building
             production-ready AI applications using
@@ -74,6 +76,34 @@ function ResumeWindow({ onClose }) {
             <li>RAG PDF Chatbot</li>
             <li>Heart Disease Prediction</li>
           </ul>
+        </section>
+
+        <section>
+          <h3>Links</h3>
+
+          <div className="project-links">
+
+            <a
+              href="https://github.com/Tinish2005"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-btn"
+            >
+              GitHub
+            </a>
+
+            <a
+              href="https://linkedin.com/in/tinish-550aa32a3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-btn"
+            >
+              LinkedIn
+            </a>
+
+            {/* Add Resume PDF button later */}
+
+          </div>
         </section>
 
       </div>
