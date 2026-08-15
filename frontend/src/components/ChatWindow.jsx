@@ -284,67 +284,105 @@ ${userQuestion}
     }
   };
 
-  return (
-    <div className="showcase-window">
+return (
+  <div className="showcase-window">
 
-      <div className="showcase-header">
-        <h2>Ask Tinish</h2>
+    <div className="showcase-header">
+      <h2>Ask Tinish</h2>
 
-        <button
-          className="close-btn"
-          onClick={onClose}
-        >
-          ✕
-        </button>
-      </div>
+      <button
+        className="close-btn"
+        onClick={onClose}
+      >
+        ✕
+      </button>
+    </div>
 
-      <div className="chat-body">
+    <div className="chat-body">
 
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={
-              msg.role === "user"
-                ? "user-message"
-                : "assistant-message"
-            }
-          >
-            {msg.content}
-          </div>
-        ))}
-
-        {loading && (
-          <div className="assistant-message">
-            Thinking...
-          </div>
-        )}
-
-      </div>
-
-      <div className="chat-input-area">
-
-        <input
-          type="text"
-          placeholder="Ask Tinish..."
-          value={input}
-          onChange={(e) =>
-            setInput(e.target.value)
+      {messages.map((msg, index) => (
+        <div
+          key={index}
+          className={
+            msg.role === "user"
+              ? "user-message"
+              : "assistant-message"
           }
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSend();
-            }
-          }}
-        />
+        >
+          {msg.content}
+        </div>
+      ))}
 
-        <button onClick={handleSend}>
-          Send
-        </button>
-
-      </div>
+      {loading && (
+        <div className="assistant-message">
+          Thinking...
+        </div>
+      )}
 
     </div>
-  );
+
+    {/* SUGGESTED QUESTIONS */}
+
+    <div className="suggested-questions">
+
+      <button
+        onClick={() =>
+          setInput("Who is Tinish?")
+        }
+      >
+        Who is Tinish?
+      </button>
+
+      <button
+        onClick={() =>
+          setInput("What is DeepHire?")
+        }
+      >
+        What is DeepHire?
+      </button>
+
+      <button
+        onClick={() =>
+          setInput("Tell me about AI GitHub Agent")
+        }
+      >
+        AI GitHub Agent
+      </button>
+
+      <button
+        onClick={() =>
+          setInput("What skills does Tinish have?")
+        }
+      >
+        Skills
+      </button>
+
+    </div>
+
+    <div className="chat-input-area">
+
+      <input
+        type="text"
+        placeholder="Ask Tinish..."
+        value={input}
+        onChange={(e) =>
+          setInput(e.target.value)
+        }
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSend();
+          }
+        }}
+      />
+
+      <button onClick={handleSend}>
+        Send
+      </button>
+
+    </div>
+
+  </div>
+);
 }
 
 export default ChatWindow;

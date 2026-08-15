@@ -595,3 +595,52 @@ body,
 
   color:white;
 }
+
+/* Suggested Questions */
+
+.suggested-questions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:10px 15px;
+}
+
+.suggested-questions button{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:white;
+  padding:8px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.suggested-questions button:hover{
+  background:rgba(56,189,248,.25);
+}
+
+/* AI Status */
+
+.ai-status{
+  color:#22c55e;
+  font-size:12px;
+}
+
+/* Better Window Shadow */
+
+.showcase-window{
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+}
+
+/* Dock Hover */
+
+.dock-item{
+  transition:.2s;
+}
+
+.dock-item:hover{
+  transform:
+    translateY(-8px)
+    scale(1.15);
+}
