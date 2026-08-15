@@ -279,3 +279,193 @@ body,
     0 0 15px #7DD3FC,
     0 0 30px #7DD3FC;
 }
+/* PROJECT EXPLORER */
+
+.explorer-window{
+  position:absolute;
+
+  top:110px;
+  left:260px;
+
+  width:500px;
+  min-height:350px;
+
+  z-index:500;
+
+  border-radius:20px;
+
+  backdrop-filter:blur(20px);
+
+  background:rgba(255,255,255,.12);
+
+  border:1px solid rgba(255,255,255,.15);
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.30);
+}
+
+.explorer-header{
+  display:flex;
+
+  justify-content:space-between;
+  align-items:center;
+
+  padding:15px 20px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.15);
+
+  color:white;
+}
+
+.close-btn{
+  width:32px;
+  height:32px;
+
+  border:none;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  color:white;
+
+  background:rgba(255,255,255,.12);
+}
+
+.close-btn:hover{
+  background:rgba(255,0,0,.25);
+}
+
+.explorer-content{
+  padding:20px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:15px;
+}
+
+.project-item{
+  padding:15px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.12);
+
+  transition:.25s ease;
+}
+
+.project-item:hover{
+  transform:translateY(-4px);
+
+  border-color:#7DD3FC;
+
+  box-shadow:
+    0 0 15px rgba(125,211,252,.35);
+}
+
+.project-item h3{
+  margin:0;
+  color:white;
+}
+
+.project-item p{
+  margin-top:6px;
+  color:#cbd5e1;
+  font-size:14px;
+}
+/* PROJECT SHOWCASE */
+
+.showcase-window{
+  position:absolute;
+
+  top:110px;
+  left:280px;
+
+  width:700px;
+
+  min-height:450px;
+
+  z-index:800;
+
+  border-radius:20px;
+
+  backdrop-filter:blur(20px);
+
+  background:rgba(255,255,255,.12);
+
+  border:1px solid rgba(255,255,255,.15);
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.40);
+
+  overflow:hidden;
+}
+
+.showcase-header{
+  display:flex;
+
+  justify-content:space-between;
+  align-items:center;
+
+  padding:18px 24px;
+
+  color:white;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.15);
+}
+
+.showcase-content{
+  padding:24px;
+
+  color:white;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:25px;
+
+  max-height:550px;
+
+  overflow-y:auto;
+}
+
+.showcase-content h3{
+  margin-bottom:10px;
+
+  color:#7DD3FC;
+}
+
+.showcase-content p{
+  line-height:1.6;
+
+  color:#E2E8F0;
+}
+
+.tech-stack{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+}
+
+.tech-pill{
+  padding:8px 14px;
+
+  border-radius:999px;
+
+  background:rgba(125,211,252,.15);
+
+  border:
+    1px solid rgba(125,211,252,.30);
+
+  color:white;
+}
