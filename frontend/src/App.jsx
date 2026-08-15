@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 import ProjectExplorer from "./components/ProjectExplorer";
 import ProjectShowcase from "./components/ProjectShowcase";
+import ResumeWindow from "./components/ResumeWindow";
+import ExperienceWindow from "./components/ExperienceWindow";
+import ChatWindow from "./components/ChatWindow";
 
 import {
   FaFileAlt,
@@ -22,9 +26,11 @@ const desktopAnimation = {
 
 function App() {
   const [openFolder, setOpenFolder] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const [selectedProject, setSelectedProject] =
-    useState(null);
+  const [showResume, setShowResume] = useState(false);
+  const [showExperience, setShowExperience] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   return (
     <div className="workspace">
@@ -38,6 +44,7 @@ function App() {
       <motion.div
         className="icon-resume desktop-icon"
         {...desktopAnimation}
+        onClick={() => setShowResume(true)}
       >
         <div className="icon">
           <FaFileAlt />
@@ -79,6 +86,12 @@ function App() {
       <motion.div
         className="icon-github desktop-icon"
         {...desktopAnimation}
+        onClick={() =>
+          window.open(
+            "https://github.com/Tinish2005",
+            "_blank"
+          )
+        }
       >
         <div className="icon">
           <FaGithub />
@@ -92,6 +105,7 @@ function App() {
       <motion.div
         className="icon-chat desktop-icon"
         {...desktopAnimation}
+        onClick={() => setShowChat(true)}
       >
         <div className="icon">
           <FaRobot />
@@ -105,6 +119,7 @@ function App() {
       <motion.div
         className="icon-exp desktop-icon icon-pop"
         {...desktopAnimation}
+        onClick={() => setShowExperience(true)}
       >
         <div className="icon">
           <FaBriefcase />
@@ -152,27 +167,77 @@ function App() {
         />
       )}
 
+      {/* RESUME WINDOW */}
+
+      {showResume && (
+        <ResumeWindow
+          onClose={() =>
+            setShowResume(false)
+          }
+        />
+      )}
+
+      {/* EXPERIENCE WINDOW */}
+
+      {showExperience && (
+        <ExperienceWindow
+          onClose={() =>
+            setShowExperience(false)
+          }
+        />
+      )}
+
+      {/* CHAT WINDOW */}
+
+      {showChat && (
+        <ChatWindow
+          onClose={() =>
+            setShowChat(false)
+          }
+        />
+      )}
+
       {/* DOCK */}
 
       <div className="dock">
 
-        <div className="dock-item">
+        <div
+          className="dock-item"
+          onClick={() => setShowResume(true)}
+        >
           📄
         </div>
 
-        <div className="dock-item">
+        <div
+          className="dock-item"
+          onClick={() => setOpenFolder("AI")}
+        >
           🧠
         </div>
 
-        <div className="dock-item">
+        <div
+          className="dock-item"
+          onClick={() => setOpenFolder("ML")}
+        >
           💻
         </div>
 
-        <div className="dock-item">
+        <div
+          className="dock-item"
+          onClick={() => setShowChat(true)}
+        >
           🤖
         </div>
 
-        <div className="dock-item">
+        <div
+          className="dock-item"
+          onClick={() =>
+            window.open(
+              "https://github.com/Tinish2005",
+              "_blank"
+            )
+          }
+        >
           🐙
         </div>
 

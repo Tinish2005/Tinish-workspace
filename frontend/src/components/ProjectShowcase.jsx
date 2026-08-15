@@ -36,7 +36,6 @@ function ProjectShowcase({
           <h3>Tech Stack</h3>
 
           <div className="tech-stack">
-
             {project.techStack.map((tech) => (
               <span
                 key={tech}
@@ -45,8 +44,28 @@ function ProjectShowcase({
                 {tech}
               </span>
             ))}
+          </div>
+
+        </section>
+
+        <section>
+
+          <h3>Project Links</h3>
+
+          <div className="project-links">
+
+            <a href={project.github} target="_blank" rel="noopener noreferrer">
+              View GitHub
+            </a>
+
+            {project.demo && (
+              <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                Live Demo
+              </a>
+            )}
 
           </div>
+
         </section>
 
       </div>
